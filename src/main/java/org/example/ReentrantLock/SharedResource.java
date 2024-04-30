@@ -1,4 +1,4 @@
-package org.example.reentrantlock;
+package org.example.ReentrantLock;
 
 import java.util.concurrent.locks.ReentrantLock;
 

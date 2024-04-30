@@ -1,4 +1,4 @@
-package org.example.practice;
+package org.example.Practice;
 
 public class SharedResource {
     boolean isAvailable = false;
