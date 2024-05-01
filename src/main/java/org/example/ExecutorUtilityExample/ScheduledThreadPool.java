@@ -10,15 +10,10 @@ public class ScheduledThreadPool {
     public static void main(String[] args){
         ScheduledExecutorService poolObj = Executors.newScheduledThreadPool(5);
 
-        Future<String> futureObj =  poolObj.schedule(()->{
-            return "hello";
-        }, 5, TimeUnit.SECONDS);
+        Future<?> futureObj =  poolObj.scheduleAtFixedRate(()->{
+            System.out.println("hello");
+        }, 5,3, TimeUnit.SECONDS); // will keep on printing hello after every 3 sec
 
-        try {
-            System.out.println(futureObj.get());
-        } catch (Exception e){
-
-        }
         poolObj.shutdown();
     }
 }
