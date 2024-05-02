@@ -1,4 +1,4 @@
-package org.example.Practice;
+package org.example.DaemonThread;
 
 public class SharedResource {
     boolean isAvailable = false;
