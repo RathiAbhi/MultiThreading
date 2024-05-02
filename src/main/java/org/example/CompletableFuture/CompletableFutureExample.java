@@ -66,3 +66,46 @@ class ThenApplyAsync{
         }
     }
 }
+
+class ThenComposeAndThenComposeAsync{
+
+    public static void main(String[] args){
+        try{
+            ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(1,1,1, TimeUnit.HOURS, new ArrayBlockingQueue<>(10), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+
+            // doing further computation by a thenCompose method
+            CompletableFuture<String> asyncTask1 = CompletableFuture.supplyAsync(()->{
+                return "task completed";
+            }, poolExecutor).thenCompose((String val)->{
+                return CompletableFuture.supplyAsync(()-> val + " and");
+            }).thenComposeAsync((String val) ->{
+                return CompletableFuture.supplyAsync(()-> val + " finished");
+            }); // the order remains intact in case of multiple async tasks
+
+            System.out.println(asyncTask1.get());
+
+            poolExecutor.shutdown();
+        } catch (Exception e){
+
+        }
+    }
+}
+
+class ThenAcceptAndThenAcceptAsync{
+
+    public static void main(String[] args){
+        try{
+            ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(1,1,1, TimeUnit.HOURS, new ArrayBlockingQueue<>(10), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+
+            CompletableFuture<Void> asyncTask1 = CompletableFuture.supplyAsync(()->{
+                return "task completed";
+            }, poolExecutor).thenAccept((String val)->{
+                System.out.println("All done"); // used at the end of async task
+            });
+
+            poolExecutor.shutdown();
+        } catch (Exception e){
+
+        }
+    }
+}
