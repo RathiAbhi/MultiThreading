@@ -12,7 +12,11 @@ public class Main {
         });
 
         t1.start();
+        try{
+            Thread.sleep(5000);
+        } catch (Exception e){
 
+        }
         System.out.println(threadLocalObj.get());
     }
 }
