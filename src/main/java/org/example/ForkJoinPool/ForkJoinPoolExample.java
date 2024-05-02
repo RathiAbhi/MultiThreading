@@ -1,8 +1,22 @@
 package org.example.ForkJoinPool;
 
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 
-public class RecursiveTaskExample extends RecursiveTask<Integer> {
+public class ForkJoinPoolExample{
+
+    public static void main(String[] args){
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        Future<Integer> futureObj = pool.submit(new RecursiveTaskExample(1,12));
+        try {
+            System.out.println(futureObj.get());
+        } catch (Exception e){
+
+        }
+    }
+}
+class RecursiveTaskExample extends RecursiveTask<Integer> {
 
     int start;
     int end;
@@ -11,10 +25,6 @@ public class RecursiveTaskExample extends RecursiveTask<Integer> {
         this.end = end;
     }
 
-    public static void main(String[] args){
-        RecursiveTaskExample recursiveTaskExample = new RecursiveTaskExample(1,10);
-        System.out.println(recursiveTaskExample.compute());
-    }
     @Override
     protected Integer compute() {
         if (end-start<=4){
